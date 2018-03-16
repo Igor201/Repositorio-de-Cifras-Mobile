@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local cifra = require( "Cifra" )
+local save = require("saveData")
  
 local scene = composer.newScene()
 
@@ -24,7 +25,7 @@ local function userImputNome( event )
     elseif ( event.phase == "ended" or event.phase == "submitted" ) then
         -- Output resulting text from "defaultField"
     cifra.nome = event.target.text  
-    print(cifra.nome)
+    print(cifra.nome .. " Test")
  
     elseif ( event.phase == "editing" ) then
         
@@ -39,7 +40,7 @@ local function userImputAutor( event )
     elseif ( event.phase == "ended" or event.phase == "submitted" ) then
         -- Output resulting text from "defaultField"
     cifra.autor = event.target.text  
-    print(cifra.autor)
+    print(cifra.autor .. " Test")
  
     elseif ( event.phase == "editing" ) then
         
@@ -54,6 +55,15 @@ end
 local bg
 local title
 local button
+local button2
+
+function saveCifra( event )
+    save.data(cifra.nome)
+    print(save.readData())
+
+
+end
+
 
 function mudarCena(event)
 
@@ -81,6 +91,11 @@ function scene:create( event )
 
     button:addEventListener("tap", mudarCena)
 
+    button2 = display.newRect(display.contentCenterX, display.contentCenterY*1.5, display.contentWidth/3, display.contentHeight/13 )
+    button2:setFillColor(1, 1, 1 )
+    sceneGroup:insert(button2)
+
+    button2:addEventListener("tap", saveCifra)
 end
  
  
